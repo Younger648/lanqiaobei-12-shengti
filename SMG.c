@@ -32,6 +32,7 @@ void SMG_config(uchar pos,uchar dat)
 {
 	HC573_config(6);
 	P0 = pos;
+	Delay_OneWire(1);
 	HC573_config(7);
 	P0 = dat;
 

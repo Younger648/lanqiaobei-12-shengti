@@ -20,9 +20,7 @@ void HC573_config(char n)
 	
 		case 7:
 			P2 = (P2 & 0x1f) | 0xe0;
-	  break;
-	
-	
+	  break;	
 	
 	}
 

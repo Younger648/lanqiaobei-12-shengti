@@ -1,7 +1,10 @@
 #include "head.h"
 
 uint temp;
-
+uint temp_0;
+uchar count = 25;
+uchar adree;
+uchar dat;
 
 
 
@@ -9,81 +12,137 @@ uint temp;
 
 /*******************************配置ds18b20带小数点******************************************/
 
-void ds18b20_config_dot()
+void Read_DS18b20_config()//带小数点的配置
+ {
+	 float temp2;
+	 uchar LSB ,HSB;
+	 
+   init_ds18b20();
+
+	 
+	 Write_DS18B20(0xcc);
+   Write_DS18B20(0x44);
+		
+	 delaySMG(10000);
+	 
+
+	 init_ds18b20();
+
+	 
+	 Write_DS18B20(0xcc);
+   Write_DS18B20(0xbe);
+		
+	 LSB = Read_DS18B20();//高八位
+   HSB = Read_DS18B20();//低八位
+
+	 temp = (HSB << 8) | LSB;
+	 temp = temp * 6.25;
+
+	 
+	 
+//		temp = HSB;
+//		temp = (temp << 8) | LSB;
+//		if((temp & 0x800) == 0x0000)
+//		{
+//		 temp >>= 4;
+//		 temp = temp * 10;
+//		 temp = temp + (LSB & 0x0f) * 6.25;	
+//		}
+ }
+
+
+ 
+ 
+ 
+ 
+
+/*******************************温度****************************************/
+
+void ds18b20_show()
 {
-	uchar LSB , HSB;
+
+	static char n;
 	
-	init_ds18b20();
-	Delay_OneWire(10000);
-	
-	Write_DS18B20(0xcc);
-	Write_DS18B20(0x44);
-	Delay_OneWire(10000);
-	
-	init_ds18b20();
-	Delay_OneWire(1000);
-	
-	Write_DS18B20(0xcc);
-	Write_DS18B20(0xbe);
-	Delay_OneWire(10000);
-	
-	LSB = Read_DS18B20();
-	HSB = Read_DS18B20();
-	
-	temp = HSB;
-	temp = (temp << 8) | LSB;
-	
-	if((temp & 0x800) == 0x0000)
+	n++;
+	if(n == 7)
+	n = 1;
+		
+	switch(n)
 	{
-		temp >>= 4;
-		temp = temp * 10;
-	  temp = temp + (LSB & 0x0f) * 0.625;
+		case 1:
+			adree = 0;
+		  dat = 12;
+		break;
+
+		case 2:
+			adree = 4;
+		  dat = temp / 1000;
+		break;
+				
+		case 3:
+			adree = 5;
+		  dat = (temp / 100) % 10;
+		break;
+						
+		case 4:
+			adree = 5;
+		  dat = 20;
+		break;
+								
+		case 5:
+			adree = 6;
+		  dat = (temp % 100) / 10;
+		break;
+		
+		case 6:
+			adree = 7;
+		  dat = temp % 10;
+		break;
+
 	}
+    SMG_config(SMG_adree[adree],SMG_duanma[dat]);
 }
 
 
 
 
 
-//void ds18b20_show()
-//{
-//	
 
 
 
 
 
+/********************************温度参数*****************************************/
 
-//}
+void ds18b20_refer_show()
+{
 
+	static char n;
+	
+	n++;
+	if(n == 4)
+	n = 1;
+		
+	switch(n)
+	{
+		case 1:
+			adree = 0;
+		  dat = 16;
+		break;
+		
+		case 2:
+			adree = 6;
+		  dat = count / 10;
+		break;
+		
+		case 3:
+			adree = 7;
+		  dat = count % 10;
+		break;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	}
+    SMG_config(SMG_adree[adree],SMG_duanma[dat]);
+}
 
 
 
@@ -95,43 +154,41 @@ void ds18b20_config_dot()
 
 
 
+/*******************************温度参数按键控制*********************************/
+void refer_key()
+{
+	
+	key_scon(3);
+	if(C2 == 0)
+	{
+		Delay5ms();
+		if(C2 == 0)
+		{
+			count ++;		
+		}
+		while(C2 == 0);
+	}
+	
 
-/*****************************************配置ds18b20不带小数点**********************************************************/
 
 
 
+  key_scon(4);//S8，按下温度减1
+	if(C2 == 0)
+	{
+		Delay5ms();
+		if(C2 == 0)
+		{
+			count --;
+		}
+		while(C2 == 0);
+	}
+
+
+}
 
 
 
-
-
-
-//void ds18b20_config_nodot()
-//{
-//	uchar LSB , HSB;
-//	init_ds18b20();
-//	Delay_OneWire(10000);
-//	
-//	Write_DS18B20(0xcc);
-//  Write_DS18B20(0x80);
-//	Delay_OneWire(10000);
-//	
-//	init_ds18b20();
-//	Delay_OneWire(10000);
-
-//	Write_DS18B20(0xcc);
-//  Write_DS18B20(0xbe);
-//	Delay_OneWire(10000);
-//	
-//	LSB = Read_DS18B20();
-//	HSB = Read_DS18B20();
-//	
-//	temp = HSB;
-//	temp = (temp << 8) | LSB;
-//	temp >>= 4;
-//	
-
-//}
 
 
 
