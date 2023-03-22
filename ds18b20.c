@@ -1,7 +1,6 @@
 #include "head.h"
 
 uint temp;
-uint temp_0;
 uchar count = 25;
 uchar adree;
 uchar dat;
@@ -17,17 +16,19 @@ void Read_DS18b20_config()//带小数点的配置
 	 float temp2;
 	 uchar LSB ,HSB;
 	 
+	 EA = 0;
    init_ds18b20();
-
+   EA = 1;
 	 
 	 Write_DS18B20(0xcc);
    Write_DS18B20(0x44);
 		
 	 delaySMG(10000);
 	 
-
+	 EA = 0;
 	 init_ds18b20();
-
+	 EA = 1;
+	 
 	 
 	 Write_DS18B20(0xcc);
    Write_DS18B20(0xbe);
@@ -36,13 +37,13 @@ void Read_DS18b20_config()//带小数点的配置
    HSB = Read_DS18B20();//低八位
 
 	 temp = (HSB << 8) | LSB;
-	 temp = temp * 6.25;
+	 temp = temp * 6.25;//6.25保留两位小数，0.625保留一位小数，0.0625保留整数
 
 	 
 	 
 //		temp = HSB;
 //		temp = (temp << 8) | LSB;
-//		if((temp & 0x800) == 0x0000)
+//		if((temp & 0x800) == 0x0000）/判断是否为负数
 //		{
 //		 temp >>= 4;
 //		 temp = temp * 10;

@@ -12,6 +12,9 @@ void menu()//菜单函数
 	
 	else if(scon == 2)//菜单2，温度参考模式
 	ds18b20_refer_show();
+	
+	else if(scon == 3)//菜单3，DAC
+	DAC_show();
 
 }
 
@@ -26,7 +29,7 @@ void menu_key()
 		if(C1 == 0)
 		{
 			scon++;
-			if(scon == 3)
+			if(scon == 4)
 	    scon = 1;
 		}
 		while(C1 == 0);

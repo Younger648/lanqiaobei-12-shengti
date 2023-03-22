@@ -10,13 +10,15 @@
 
 
 
-
-
 void IIC_Delay(unsigned char i)
 {
     do{_nop_();}
     while(i--);        
 }
+
+
+
+
 //总线启动条件
 void IIC_Start(void)
 {
@@ -98,3 +100,12 @@ unsigned char IIC_RecByte(void)
     }
     return da;    
 }
+
+
+
+
+
+
+
+
+

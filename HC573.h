@@ -3,7 +3,7 @@
 
 
 
-void HC573_config(char n);
+void HC138_config(char n);
 
 #endif
 

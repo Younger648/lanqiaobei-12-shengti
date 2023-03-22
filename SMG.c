@@ -30,10 +30,21 @@ uchar code SMG_adree[8] ={0x01,0x02,0x04,0x08,0x10,0x20,0x40,0x80};
 
 void SMG_config(uchar pos,uchar dat)
 {
-	HC573_config(6);
+	HC138_config(6);
 	P0 = pos;
 	Delay_OneWire(1);
-	HC573_config(7);
+	HC138_config(7);
+	P0 = dat;
+
+}
+
+
+void SMG_config_all(uchar dat)
+{
+	HC138_config(6);
+	P0 = 0xff;
+	Delay_OneWire(1);
+	HC138_config(7);
 	P0 = dat;
 
 }

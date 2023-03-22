@@ -7,7 +7,8 @@ void main()
 {
 	
 	InitTimer0();
-	
+	read_at24c02_dat();
+
 	
 	while(1)
 	{
@@ -16,6 +17,7 @@ void main()
     menu_key();
 		refer_key();
 			
+
 		
 	}
 
