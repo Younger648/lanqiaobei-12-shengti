@@ -1,7 +1,7 @@
 #include "head.h"
 
 uint temp;
-uchar count = 25;
+uint count = 25;
 uchar adree;
 uchar dat;
 
@@ -133,7 +133,7 @@ void ds18b20_refer_show()
 		
 		case 2:
 			adree = 6;
-		  dat = count / 10;
+		  dat = count /10;
 		break;
 		
 		case 3:

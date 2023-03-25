@@ -12,10 +12,13 @@ void main()
 	
 	while(1)
 	{
-		volt = (float)read_pcf8591_dat() / 255.0f * 500.0f;
+//		volt = (float)read_pcf8591_dat() / 255.0f * 500.0f;
 //		pcf8591_config();
-		read_pcf8591_dat();
+//		read_pcf8591_dat();
+
 		Read_DS18b20_config();
+		mode_DAC();
+		mode_key();
     menu_key();
 		refer_key();
 

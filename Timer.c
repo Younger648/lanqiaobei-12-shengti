@@ -20,12 +20,19 @@ void serviceTimer0() interrupt 1
 	
 	TL0 = 0x66;		//设置定时初始值
 	TH0 = 0xFC;		//设置定时初始值
-  HC138_config(4);
+	
 	P0 = 0xff;
 
+	
+	HC138_config(4);
 
 	
+	mode_led();
 	menu();
+	
+	
+
+	
 
 }
 

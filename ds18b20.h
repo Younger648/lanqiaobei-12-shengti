@@ -3,7 +3,7 @@
 
 
 extern uint temp;
-extern uchar count;
+extern uint count;
 extern uchar count_0;
 extern uchar adree;
 extern uchar dat;
