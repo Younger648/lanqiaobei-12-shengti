@@ -30,7 +30,8 @@ void serviceTimer0() interrupt 1
 	mode_led();
 	menu();
 	
-	
+	HC138_config(5);
+	jidianqi = 0;//关闭继电器，会导致数码管比较闪
 
 	
 
